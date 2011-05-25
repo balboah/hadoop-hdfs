@@ -280,7 +280,7 @@ public class HadoopThriftServer extends ThriftHadoopFileSystem {
         now = now();
         HadoopThriftHandler.LOG.debug("write: " + tout.id);
         FSDataOutputStream out = (FSDataOutputStream)lookup(tout.id);
-        byte[] tmp = data.getBytes("UTF-8");
+        byte[] tmp = data.getBytes("latin1");
         out.write(tmp, 0, tmp.length);
         HadoopThriftHandler.LOG.debug("wrote: " + tout.id);
         return true;
@@ -306,7 +306,7 @@ public class HadoopThriftServer extends ThriftHadoopFileSystem {
         byte[] tmp = new byte[length];
         int numbytes = in.read(offset, tmp, 0, length);
         HadoopThriftHandler.LOG.debug("read done: " + tout.id);
-        return new String(tmp, 0, numbytes, "UTF-8");
+        return new String(tmp, 0, numbytes, "latin1");
       } catch (IOException e) {
         throw new ThriftIOException(e.getMessage());
       }
